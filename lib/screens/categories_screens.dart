@@ -6,9 +6,8 @@ import '../widgets/category_item.dart';
 class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('DeliMeals')),
-      body: GridView(
+    return Container(
+      child: GridView(
           padding: EdgeInsets.all(25),
           children: DUMMY_CATEGORIES
               .map(
