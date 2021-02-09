@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './categories_screens.dart';
 import './favourites_screen.dart';
+import '../widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   @override
@@ -21,6 +22,8 @@ class _TabsScreenState extends State<TabsScreen> {
   ];
   int _selectedIndex = 0;
 
+  final MainDrawer _drawer = MainDrawer();
+
   void _selectTab(int index) {
     setState(() {
       _selectedIndex = index;
@@ -33,6 +36,7 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(_pages[_selectedIndex]['title']),
       ),
+      drawer: _drawer,
       body: _pages[_selectedIndex]['screen'],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).primaryColor,
