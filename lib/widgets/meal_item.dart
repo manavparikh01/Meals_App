@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/meal_detail_screen.dart';
 import '../models/meal.dart';
 
+// ignore: must_be_immutable
 class MealItem extends StatelessWidget {
   final String id;
   final String title;
@@ -9,6 +10,7 @@ class MealItem extends StatelessWidget {
   final Complexity complexity;
   final Affordability affordability;
   final String imageUrl;
+  final Function removeItem;
 
   const MealItem({
     @required this.id,
@@ -17,7 +19,7 @@ class MealItem extends StatelessWidget {
     @required this.complexity,
     @required this.affordability,
     @required this.imageUrl,
-    removeItem,
+    @required this.removeItem,
   });
 
   String get complexityText {
@@ -60,6 +62,7 @@ class MealItem extends StatelessWidget {
     )
         .then((result) {
       if (result != null) {
+        removeItem(result);
         //removeItem(result);
       }
     });

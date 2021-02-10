@@ -15,42 +15,44 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
   //final String categoryTitle;
 
   //CategoryMealsScreen(this.categoryId, this.categoryTitle);
-  //String categoryTitle;
-  //List<Meal> displayedMeal;
-  //var _loadedData = false;
+  String categoryTitle;
+  List<Meal> displayedMeal;
+  var _loadedData = false;
 
-  //@override
-  //void initState() {
-  // TODO: implement initState
+  @override
+  void initState() {
+    //TODO: implement initState
 
-  //super.initState();
-  //}
+    super.initState();
+  }
 
-  //@override
-  //void didChangeDependencies() {
-  // TODO: implement didChangeDependencies
+  @override
+  void didChangeDependencies() {
+    //TODO: implement didChangeDependencies
+    if (!_loadedData) {
+      final routeArgs =
+          ModalRoute.of(context).settings.arguments as Map<String, String>;
+      final categoryId = routeArgs['id'];
+      categoryTitle = routeArgs['title'];
+      displayedMeal = DUMMY_MEALS.where((meal) {
+        return meal.categories.contains(categoryId);
+      }).toList();
+      _loadedData = true;
+    }
 
-  //     _loadedData = true;
-  //   }
-  //   super.didChangeDependencies();
-  // }
+    super.didChangeDependencies();
+  }
 
-  // void _removeMeal(String mealId) {
-  //   setState(() {
-  //     displayedMeal.where((meal) => meal.id == mealId);
-  //   });
-  // }
+  void _removeMeal(String mealId) {
+    setState(() {
+      displayedMeal.removeWhere((meal) => meal.id == mealId);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     //if (!_loadedData) {
-    final routeArgs =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
-    final categoryId = routeArgs['id'];
-    final categoryTitle = routeArgs['title'];
-    final displayedMeal = DUMMY_MEALS.where((meal) {
-      return meal.categories.contains(categoryId);
-    }).toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(categoryTitle),
@@ -66,6 +68,7 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
             imageUrl: displayedMeal[index].imageUrl,
             //removeItem: _removeMeal,
             //passedId: null,
+            removeItem: _removeMeal,
           );
         },
         itemCount: displayedMeal.length,
