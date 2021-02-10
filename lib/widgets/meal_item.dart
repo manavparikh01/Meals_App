@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app_flutter_course/screens/meal_detail_screen.dart';
+import '../screens/meal_detail_screen.dart';
 import '../models/meal.dart';
 
 class MealItem extends StatelessWidget {
@@ -17,6 +17,7 @@ class MealItem extends StatelessWidget {
     @required this.complexity,
     @required this.affordability,
     @required this.imageUrl,
+    removeItem,
   });
 
   String get complexityText {
@@ -52,7 +53,16 @@ class MealItem extends StatelessWidget {
   }
 
   void selectItem(BuildContext context) {
-    Navigator.of(context).pushNamed(MealDetailScreen.routeName, arguments: id);
+    Navigator.of(context)
+        .pushNamed(
+      MealDetailScreen.routeName,
+      arguments: id,
+    )
+        .then((result) {
+      if (result != null) {
+        //removeItem(result);
+      }
+    });
   }
 
   @override
